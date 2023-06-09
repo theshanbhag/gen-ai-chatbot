@@ -2,6 +2,7 @@ from flask import Flask, request, render_template
 
 import chatter
 from vertexai.preview.language_models import InputOutputTextPair
+
 conversation = []
 
 app = Flask(__name__)
@@ -13,19 +14,17 @@ saved_conversation = chatter.query_db(conn, "XYZ-Corp", "Customer", {"customer_i
 context = intro_context["context"]
 chat_model, parameters = chatter.predict_large_language_model_sample("gcp-pov", "chat-bison@001", 0.8, 100, 0.8, 40,
                                                                      "us-central1")
-try:
-    if saved_conversation != {}:
-        for i in saved_conversation["conversation"]:
-            conversation.append(
-                InputOutputTextPair(
-                    input_text=i["question"],
-                    output_text=i["response"]
-                )
-            )
-except Exception as e:
-    conversation = []
 
+if saved_conversation:
+    for i in saved_conversation["conversation"]:
+        conversation.append(
+            InputOutputTextPair(
+                input_text=i["question"],
+                output_text=i["response"]
+            )
+        )
 print(conversation)
+
 chat = chat_model.start_chat(
     context=context,
     examples=conversation
@@ -45,4 +44,4 @@ def chat_with_ai():
     return response_text
 
 
-app.run(host='0.0.0.0', port=81, debug=True)
+app.run(debug=True)

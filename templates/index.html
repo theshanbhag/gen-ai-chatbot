@@ -2,7 +2,7 @@
 <html lang="en" >
 <head>
   <meta charset="UTF-8">
-  <title>CodePen - messenger</title>
+  <title>Chatter - Chatbot</title>
   <script type="text/javascript" src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
 
 </head>
@@ -191,19 +191,6 @@
       </div>
     </div>
 
-    <div class="msg right-msg">
-      <div
-       class="msg-img"
-       style="background-image: url(https://image.flaticon.com/icons/svg/145/145867.svg)"
-      ></div>
-
-      <div class="msg-bubble">
-        <div class="msg-info">
-          <div class="msg-info-name">Customer</div>
-          <div class="msg-info-time">12:46</div>
-        </div>
-      </div>
-    </div>
   </main>
 
   <form class="msger-inputarea">
@@ -246,8 +233,6 @@
       setTimeout(() => {
         appendMessage(BOT_NAME, BOT_IMG, "left", jqresponse.responseText);
       }, delay);
-
-
     });
 
     function appendMessage(name, img, side, text) {
