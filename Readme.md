@@ -1,4 +1,3 @@
-# Speed up your development with - _**Atlas + GCP App Engine**_
 
 ## Quickstart: 
 
