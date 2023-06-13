@@ -6,34 +6,50 @@
 ### 1. Configure Atlas Environment
 
 
-### 2. Google cloud setup
+### 2. MongoDB setup
 
 
 * Clone this repository on the Cloud terminal using below command.
 
   ```git clone  https://@github.com/theshanbhag/gen-ai-chatbot.git```
 
-* Once All the above steps are complete we will navigate inside the cloned repo.
-```cd Atlas-AppEngine-Integration/```
-* Update the MongoDB URI in your config.txt file.
-```vi config.txt```
+* Update the mongodb srv of your cluster in main.py file.
+* Create a database with name "XYZ-Corp" in your MongoDB cluster with collection Customer.
+* Add a sample document to it:
+  ```
+   {
+    "_id":{"$oid":"6488127b353fb41c00a9650b"},
+    "customer_id":"111",
+    "conversation":[],
+    "Name":"Venkatesh Shanbhag"
+   } 
+  ```
+* Create a collection with name Insurance and add below document to it.
+  ```
+  {
+  "_id":{"$oid":"64881424353fb41c00a9650c"},
+  "context":"You are a Customer support agent with name Sara working for XYZ-corp.\nIt does provides property Insurance. Sara will not reply for any queries regarding other types of insurance.\nThe company covers insurance of properties like - Hospitals, offices, shops, apartments.\nMax insurance covered will decline over period of time.\nXYZ-Corp only covers Fire and Earthquake hazard insurance. \nYou are allowed to provide only the details regarding the company itself.\nDo not repond with sentiment in any of the responses.",
+  "type":"Intro"
+  }
+  ```
+* Create a collection with name Claims and add below document:
+  ```
+  {"_id":{"$oid":"64881476353fb41c00a9650d"},
+  "claim_number":"12345",
+  "Name":"Venkatesh Shanbhag",
+  "Claim_amount":{"$numberLong":"10000"},
+  "Currency":"USD",
+  "Claim_status":"In progress","customer_id":"111"
+  }
+  ```
+* Set up a search index with name 'default' on Claims collection. follow the search setup documentation: https://www.mongodb.com/docs/atlas/atlas-search/create-index/
 
-* Finally deploy the application using:
-```gcloud app deploy```
-![img.png](images/img07.png)
+### 3. Google cloud setup
 
+* Update the project name.
 
+Run the application:
 
-### Verification
-
-* The app can be accessed from the link generated from last step.
-![img.png](images/img08.png)
-
-
-* Open the link in new browser tab.
-![img.png](images/img09.png)
-
-
-* Create new entries in the sample App to verify the data is being written to MongoDB.
-
-* Navigate to Atlas and see if the data is being written to MongoDB.
+```commandline
+python3 main.py
+```
